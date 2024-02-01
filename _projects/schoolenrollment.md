@@ -1,141 +1,49 @@
 ---
 layout: post
 title: School Enrollment Project
-description: Data Science II project completed Fall 2023
+description: Data Science II project completed Fall 2023 predicting school enrollment using various data sources.
 ---
-Example modified from [here](http://www.unexpected-vortices.com/sw/rippledoc/quick-markdown-example.html){:target="_blank"}.
 
-H1 Header
-============
+# Background
 
-Paragraphs are separated by a blank line.
+This project was completed during the Fall 2023 course HHS 4500 Data Science II taught by Dr. David Lilley at the University of Toledo. It is a culmination of many skills we worked on over the course of Data Science I and II (HHS 2500 and 4500), particularly the ability to write computer code and merge data from different sources to investigate a real-world problem. 
 
-2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists
-look like:
+# Tools Used
 
-  * this one
-  * that one
-  * the other one
+* R Studio
+* Libraries: tidyverse, haven, panelr, readxl, stargazer
 
-Note that the actual text
-content starts at 4-columns in.
+# Data Used
 
-> Block quotes are
-> written like so.
->
-> They can span multiple paragraphs,
-> if you like.
+* A file containing school enrollment data years 1990-2001 from Elementary/Secondary Information System (ELSI) from the National Center for Education Statistics (NCES)
+* A file containing the schools' IDs, counties, and FIPS from ELSI
+* A file containing the schools' coordinates from ELSI
+* Census data for population estimates
+* A file from the Uniform Crime Reporting (UCR) program years 1990-2001 at the ORI level
+* Files from the Bureau of Economic Analysis (BEA) years 1990-2001
 
+# Project Outline
 
-H2 Header
-------------
+## Part 1: Read-in and Prepare the School Enrollments Data
 
-Here's a numbered list:
+In this portion of the project, the ELSI school enrollment data was cleaned and transformed into long panel format for use in future sections. 
 
- 1. first item
- 2. second item
- 3. third item
+## Part 2: Read-in and Prepare the School County FIPS Data and Merge with Enrollments
 
-Note again how the actual text starts at 4 columns in (4 characters
-from the left side). Here's a code sample:
+This section cleaned the location-based data and involved a series of merges. First, I merged (left join) the enrollments dataframe with the school county dataframe. The result was combo_school_counties. Next, I created a dataframe with only non-matching records from the merge, then I merged (inner join) the non-matching file with the school coordinates file. Finally, I merged the matching records from the prior merge with combo_school_counties. The final file was aggregated to the county-year level. A clean permanent file of the county-year level school enrollments file was created for use in future sections.
 
-    # Let me re-iterate ...
-    for i in 1 .. 10 { do-something(i) }
+## Part 3: Read-in and Prepare the Census and Crime Data and Merge with Enrollments
 
-As you probably guessed, indented 4 spaces. By the way, instead of
-indenting the block, you can use delimited blocks, if you like:
+This section cleaned the census and crime data and involved merging a few files. The census (county-year level) was merged with the aggregated school enrollments file (county-year level). The crime data was merged with the result of the previous merge.
 
-~~~
-define foobar() {
-    print "Welcome to flavor country!";
-}
-~~~
+## Part 4: Read-in and Prepare the Economic Data and Merge with Enrollments
 
-(which makes copying & pasting easier). You can optionally mark the
-delimited block for Pandoc to syntax highlight it by specifying the languagae after the start of a block (e.g. `~~~python`) which would look like :
+Using a for loop, all the BEA files were read in and stacked on top of each other. I merged (left join) the most updated enrollment file with the economic data and cleaned the resulting file. To prepare for data analytics, I demeaned the independent and dependent variables, which was written to a permanent csv file.
 
-~~~python
-import time
-# Quick, count to ten!
-for i in range(10):
-    # (but not *too* quick)
-    time.sleep(0.5)
-    print(i)
-~~~
+## Part 5: Data Analytics
 
-### An H3 header ###
+Using nation-year level variables to check overall trends, I created line graphs of enrollments, crime, and economics from 1989 to 2001 to observe if they were up or down over the time span. Overall, enrollments was mostly up, crime was up before 1997, and economics was mostly up. 
 
-Now a nested list:
+I also found the variable most correlated with year: per capita income (demeaned).
 
- 1. First, get these ingredients:
-
-      * carrots
-      * celery
-      * lentils
-
- 2. Boil some water.
-
- 3. Dump everything in the pot and follow
-    this algorithm:
-
-        find wooden spoon
-        uncover pot
-        stir
-        cover pot
-        balance wooden spoon precariously on pot handle
-        wait 10 minutes
-        goto first step (or shut off burner when done)
-
-    Do not bump wooden spoon or it will fall.
-
-Notice again how text always lines up on 4-space indents (including
-that last line which continues item 3 above).
-
-Here's a footnote [^1].
-
-[^1]: Some footnote text.
-
-Tables can look like this:
-
-| Header 1 | Header 2                   | Header 3 |
-|:--------:|:--------------------------:|:--------:|
-| data1a   | Data is longer than header | 1        |
-| d1b      | add a cell                 |          |
-| lorem    | ipsum                      | 3        |
-|          | empty outside cells        |          |
-| skip     |                            | 5        |
-| six      | Morbi purus                | 6        |
-
-
-A horizontal rule follows.
-
-***
-
-Here's a definition list:
-
-apples
-  : Good for making applesauce.
-
-oranges
-  : Citrus!
-
-tomatoes
-  : There's no "e" in tomatoe.
-
-Again, text is indented 4 spaces. (Put a blank line between each
-term and  its definition to spread things out more.)
-
-Here's a "line block" (note how whitespace is honored):
-
-| Line one
-|   Line too
-| Line tree
-
-and images can be specified like so:
-
-![example image](https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=300&h=300&fit=crop "An exemplary image")
-
-Inline math equation: $\omega = d\phi / dt$. Display
-math should get its own line like so:
-
-$$I = \int \rho R^{2} dV$$
+The statistically significant predictors of county school enrollment were year, proportion of nonwhite people (demeaned), proportion of males (demeaned), proportion of people aged 15 to 24 (demeaned), and total crime rate (demeaned).
