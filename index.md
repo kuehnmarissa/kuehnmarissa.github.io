@@ -12,7 +12,7 @@ I am a third-year undergraduate student at the University of Toledo in Toledo, O
 
 Additionally, I promote disability advocacy on my campus through student organization Disability Student Union, which I co-founded. I am the recipient of the Patrica Murphy scholarship, which recognizes my passion for and committment to disability justice. In my free time, I crochet, read, and make art.
 
-For my resume, download it [here](assets/MarissaKuehnResume.pdf).
+Interested in my resume? Download it [here](assets/MarissaKuehnResume.pdf).
 
 ***This website is a work in progress.***
 
