@@ -8,7 +8,7 @@ Data science is a hot career right now. Organizations with massive amounts of da
 
 But like many careers in science, technology, engineering, and mathematics (STEM), data science is not very accessible to people with disabilties. [This presentation by Dr. Andrew Hasley](https://youtu.be/qmQWED1PWKc?si=eEAYnJoX1_fRTPY-) discusses observations of the barriers in the data science workforce pipeline. In this post, I will further explore accessibility and data science at the micro-, meso-, and macro- levels.  
 
-[Micro, meso, macro image](https://www.researchgate.net/publication/334664085/figure/fig2/AS:784367936892934@1564019297324/Overview-macro-meso-and-micro-level.png)
+![Micro, meso, macro image](https://www.researchgate.net/publication/334664085/figure/fig2/AS:784367936892934@1564019297324/Overview-macro-meso-and-micro-level.png)
 
 # The Micro- Level
 
