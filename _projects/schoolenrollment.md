@@ -1,7 +1,7 @@
 ---
 layout: post
 title: School Enrollment Project
-description: Data Science II project completed Fall 2023 predicting school enrollment using various data sources.
+description: Data Science II project completed Fall 2023 predicting school enrollment using various data sources in RStudio.
 ---
 
 # Background

@@ -14,5 +14,3 @@ Additionally, I promote disability advocacy on my campus through student organiz
 
 Interested in my resume? Download it [here](assets/MarissaKuehnResume.pdf).
 
-***This website is a work in progress.***
-
