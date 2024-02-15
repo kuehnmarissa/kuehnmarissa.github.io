@@ -5,6 +5,8 @@ permalink: /projects/
 published: true
 ---
 
+<div> <p>Click on the tile to see more information about the project.</p>
+</div>
 
 <div class="ProjectContainer">
 
