@@ -284,7 +284,8 @@ Because depth (z) is not significant, I am removing it from the model.
 Now that all the variables are significant, my final regression equation
 is:
 
-*P**r**i**c**e* = 20702.94 + 10686.70 \* *C**a**r**a**t* − 200.71 \* *D**e**p**t**h**P**e**r**c**e**n**t**a**g**e* − 102.49 \* *T**a**b**l**e* − 1293.54 \* *L**e**n**g**t**h* + 69.57 \* *W**i**d**t**h*
+**Price** = 20702.94 + 10686.70 \* **Carat** − 200.71 \* **Depth Percentage** − 102.49 \* **Table** − 1293.54 \* **Length** + 69.57 \* **Width**
+
 For every additional carat, there is a $10686.70 increase in price. For
 every 1% increase in depth percentage, there is a $200.71 decrease in
 price. For every 1% increase in table, there is a $102.49 decrease in
@@ -300,7 +301,8 @@ The R output includes an F-test that can be used to assess the
 usefulness of the multiple linear regression model. To understand these
 values, I need to create null and alternative hypotheses.
 
-*L**e**t* *β*<sub>0</sub> = *P**r**i**c**e* *I**n**t**e**r**c**e**p**t*, *β*<sub>1</sub> = *C**a**r**a**t* *C**o**e**f**f**i**c**i**e**n**t*, *β*<sub>2</sub> = *D**e**p**t**h* *P**e**r**c**e**n**t**a**g**e* *C**o**e**f**f**i**c**i**e**n**t*, *β*<sub>3</sub> = *T**a**b**l**e*, *β*<sub>4</sub> = *L**e**n**g**t**h*, *β*<sub>5</sub> = *W**i**d**t**h*
+*Let* *β*<sub>0</sub> = *Price Intercept*, *β*<sub>1</sub> = *Carat Coefficient*, *β*<sub>2</sub> = *Depth Percentage Coefficient*, *β*<sub>3</sub> = *Table Coefficient*, *β*<sub>4</sub> = *Length Coefficient*, *β*<sub>5</sub> = *Width Coefficient*
+
 *H*<sub>0</sub> : *β*<sub>1</sub> = *β*<sub>2</sub> = *β*<sub>3</sub> = *β*<sub>4</sub> = *β*<sub>5</sub>, *H*<sub>*a*</sub> : *N**o**t* *a**l**l* *β*<sub>*k*</sub> *f**o**r* (*k*=0,1,..,*k*)
 The null hypothesis states that all the regression coefficients will be
 equal to zero, i.e. testing if the model does not effectively predict
@@ -326,7 +328,8 @@ Next, a t-test must be performed on all the regression coefficients to
 determine if the variable is significant to the model after all other
 variables are added to the model.
 
-*L**e**t* *β*<sub>0</sub> = *P**r**i**c**e* *I**n**t**e**r**c**e**p**t*, *β*<sub>1</sub> = *C**a**r**a**t* *C**o**e**f**f**i**c**i**e**n**t*, *β*<sub>2</sub> = *D**e**p**t**h* *P**e**r**c**e**n**t**a**g**e* *C**o**e**f**f**i**c**i**e**n**t*, *β*<sub>3</sub> = *T**a**b**l**e*, *β*<sub>4</sub> = *L**e**n**g**t**h*, *β*<sub>5</sub> = *W**i**d**t**h*
+*Let* *β*<sub>0</sub> = *Price Intercept*, *β*<sub>1</sub> = *Carat Coefficient*, *β*<sub>2</sub> = *Depth Percentage Coefficient*, *β*<sub>3</sub> = *Table Coefficient*, *β*<sub>4</sub> = *Length Coefficient*, *β*<sub>5</sub> = *Width Coefficient*
+
 For the first regression coefficient, *β*<sub>1</sub>:
 *H*<sub>0</sub> : *β*<sub>1</sub> = 0, *H*<sub>*a*</sub> : *β*<sub>1</sub> ≠ 0
 The null hypothesis states that the regression coefficient for carat
@@ -442,4 +445,4 @@ the criteria for multiple linear regression were not fully met):
     added into the model and held constant, width is a significant
     predictor of diamond price.
 -   The final model that can be used to predict price:
-    *P**r**i**c**e* = 20702.94 + 10686.70 \* *C**a**r**a**t* − 200.71 \* *D**e**p**t**h**P**e**r**c**e**n**t**a**g**e* − 102.49 \* *T**a**b**l**e* − 1293.54 \* *L**e**n**g**t**h* + 69.57 \* *W**i**d**t**h*
+    **Price** = 20702.94 + 10686.70 \* **Carat** − 200.71 \* **Depth Percentage** − 102.49 \* **Table** − 1293.54 \* **Length** + 69.57 \* **Width**
