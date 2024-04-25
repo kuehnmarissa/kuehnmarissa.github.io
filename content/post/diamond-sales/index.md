@@ -11,7 +11,7 @@ tags:
 weight: 0       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
-# Introduction
+## Introduction
 
 This project uses [this diamond sales
 dataset](https://www.kaggle.com/datasets/sahilnbajaj/diamonds-sale-data)
@@ -22,7 +22,7 @@ excluding the categorical variables because I do not yet have the
 knowledge required to properly deal with them. The methods used in this
 project are directly inspired by my Statistical Methods II coursework.
 
-## Variables
+### Variables
 
 -   carat: the mass of the diamond
 -   cut: the quality of the cut of the diamond (Fair, Good, Very Good,
@@ -36,9 +36,9 @@ project are directly inspired by my Statistical Methods II coursework.
 -   y: width in mm
 -   z: depth in mm
 
-# Preliminary Analysis
+## Preliminary Analysis
 
-## Importing Dependencies
+### Importing Dependencies
 
     library("tidyverse")
 
@@ -66,7 +66,7 @@ project are directly inspired by my Statistical Methods II coursework.
     ## 
     ##     format.pval, units
 
-## Loading The Data
+### Loading The Data
 
     diamond_sales <- read.csv("C:/Users/kuehn/Documents/Personal-Projects/diamond_sales/data/diamonds.csv")
     head(diamond_sales)
@@ -79,7 +79,7 @@ project are directly inspired by my Statistical Methods II coursework.
     ## 5  0.31      Good     J     SI2  63.3    58   335 4.34 4.35 2.75
     ## 6  0.24 Very Good     J    VVS2  62.8    57   336 3.94 3.96 2.48
 
-## Plotting The Variables
+### Plotting The Variables
 
 First, I created some histograms of the response and explanatory
 variables to see how they are distributed.
@@ -136,7 +136,7 @@ width of the dataset will be slightly smaller than the median width.
 The histogram of depth is slightly skewed to the right, meaning that the
 mean depth of the dataset will be slightly larger than the median depth
 
-## Correlation Between All Pairs of Quantitative Variables
+### Correlation Between All Pairs of Quantitative Variables
 
     diamond_sales_quant <- diamond_sales[,-c(2:4)] # Remove categorical variables
 
@@ -183,9 +183,9 @@ between each pair of variables at the 0.05 level.
 Now that the preliminary analysis is complete, a multiple linear
 regression model can be created including all the variables.
 
-# Linear Regression Model
+## Linear Regression Model
 
-## Checking Conditions
+### Checking Conditions
 
 To use a linear regression model, I need to check the following
 conditions:
@@ -194,7 +194,7 @@ conditions:
 -   Consistent variability
 -   Normal residuals
 
-### Linearity & Consistent Variability Conditions
+#### Linearity & Consistent Variability Conditions
 
     qqnorm(diamond_sales$price)
     qqline(diamond_sales$price, col="blue")
@@ -205,7 +205,7 @@ From the QQPlot, the quantile points do not lie on the theoretical
 normal line, thus the linearity and consistent variability conditions
 are not satisfied.
 
-### Normal Residuals Condition
+#### Normal Residuals Condition
 
     attach(diamond_sales_quant)
     model1 <- lm(price ~ carat + depth + table + x + y + z) # Create initial linear model
@@ -219,9 +219,9 @@ data meets the normalcy criteria.
 While not all of the criteria for multiple linear regression are met,
 for the sake of practice I will continue (but with caution!).
 
-## Linear Model
+### Linear Model
 
-### First Model
+#### First Model
 
     summary(model1)
 
@@ -251,7 +251,7 @@ for the sake of practice I will continue (but with caution!).
 
 Because depth (z) is not significant, I am removing it from the model.
 
-### Second Model
+#### Second Model
 
     model2 <- lm(price ~ carat + depth + table + x + y) # Create linear model
     summary(model2)
@@ -279,7 +279,7 @@ Because depth (z) is not significant, I am removing it from the model.
     ## Multiple R-squared:  0.8592, Adjusted R-squared:  0.8592 
     ## F-statistic: 6.583e+04 on 5 and 53934 DF,  p-value: < 2.2e-16
 
-### Final Model Interpretation
+#### Final Model Interpretation
 
 Now that all the variables are significant, my final regression equation
 is:
@@ -294,7 +294,7 @@ in price. The intercept in this case does not make much sense because a
 diamond with dimensions 0 mm x 0 mm x 0 mm would not have a price of
 $20702.94.
 
-### F-Test
+#### F-Test
 
 The R output includes an F-test that can be used to assess the
 usefulness of the multiple linear regression model. To understand these
@@ -320,7 +320,7 @@ than 0.05, I can reject the null hypothesis and conclude that there is
 sufficient evidence that the model is effective at predicting price from
 carat, depth percentage, table, length, and width.
 
-### T-Tests On All Regression Coefficients
+#### T-Tests On All Regression Coefficients
 
 Next, a t-test must be performed on all the regression coefficients to
 determine if the variable is significant to the model after all other
@@ -418,7 +418,7 @@ hypothesis and conclude there is sufficient evidence that, after all
 other variables are added into the model and held constant, width is a
 significant predictor of diamond price.
 
-# Conclusion
+## Conclusion
 
 From this work, I have drawn the following conclusions (cautiously, as
 the criteria for multiple linear regression were not fully met):
