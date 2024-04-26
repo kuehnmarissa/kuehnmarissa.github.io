@@ -1,0 +1,296 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="Using multiple linear regression to predict price"><title>Diamond Sales - Predicting Price from Diamond Characteristics</title>
+<link rel=canonical href=https://kuehnmarissa.github.io/p/diamond-sales/><link rel=stylesheet href=/scss/style.min.8e60baf4cd3fc55968717a6e39762f4d28ed7ef6007566b6c7970ad0fe907198.css><meta property='og:title' content="Diamond Sales - Predicting Price from Diamond Characteristics"><meta property='og:description' content="Using multiple linear regression to predict price"><meta property='og:url' content='https://kuehnmarissa.github.io/p/diamond-sales/'><meta property='og:site_name' content='Marissa Kuehn'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content><meta property='article:published_time' content='2024-04-25T00:00:00+00:00'><meta property='article:modified_time' content='2024-04-25T00:00:00+00:00'><meta name=twitter:title content="Diamond Sales - Predicting Price from Diamond Characteristics"><meta name=twitter:description content="Using multiple linear regression to predict price"><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hua80543b4e09b880312bb2474dddbc0cc_336254_300x0_resize_box_3.png width=300 height=301 class=site-logo loading=lazy alt=Avatar></a></figure><div class=site-meta><h1 class=site-name><a href=/>Marissa Kuehn</a></h1><h2 class=site-description>Data Science and Disability Studies Student</h2></div></header><ol class=menu-social><li><a href=https://github.com/kuehnmarissa target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://www.kaggle.com/marissakuehn target=_blank title=Kaggle rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg></a></li><li><a href=https://www.linkedin.com/in/kuehnmarissa/ target=_blank title=LinkedIn rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">Table of contents</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#introduction>Introduction</a><ol><li><a href=#variables>Variables</a></li></ol></li><li><a href=#preliminary-analysis>Preliminary Analysis</a><ol><li><a href=#importing-dependencies>Importing Dependencies</a></li><li><a href=#loading-the-data>Loading The Data</a></li><li><a href=#plotting-the-variables>Plotting The Variables</a></li><li><a href=#correlation-between-all-pairs-of-quantitative-variables>Correlation Between All Pairs of Quantitative Variables</a></li></ol></li><li><a href=#linear-regression-model>Linear Regression Model</a><ol><li><a href=#checking-conditions>Checking Conditions</a><ol><li><a href=#linearity--consistent-variability-conditions>Linearity & Consistent Variability Conditions</a></li><li><a href=#normal-residuals-condition>Normal Residuals Condition</a></li></ol></li><li><a href=#linear-model>Linear Model</a><ol><li><a href=#first-model>First Model</a></li><li><a href=#second-model>Second Model</a></li><li><a href=#final-model-interpretation>Final Model Interpretation</a></li><li><a href=#f-test>F-Test</a></li><li><a href=#t-tests-on-all-regression-coefficients>T-Tests On All Regression Coefficients</a></li></ol></li></ol></li><li><a href=#conclusion>Conclusion</a></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/r/ style=background-color:#2a9d8f;color:#fff>R</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/diamond-sales/>Diamond Sales - Predicting Price from Diamond Characteristics</a></h2><h3 class=article-subtitle>Using multiple linear regression to predict price</h3></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Apr 25, 2024</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>13 minute read</time></div></footer></div></header><section class=article-content><h2 id=introduction><a href=#introduction>#</a>
+Introduction</h2><p>This project uses <a class=link href=https://www.kaggle.com/datasets/sahilnbajaj/diamonds-sale-data target=_blank rel=noopener>this diamond sales
+dataset</a>
+containing the attributes of almost 54,000 diamonds. My aim is to create
+a linear model that predicts the price of the diamond from its
+characteristics (carat, depth, table, x, y, z). For this project, I am
+excluding the categorical variables because I do not yet have the
+knowledge required to properly deal with them. The methods used in this
+project are directly inspired by my Statistical Methods II coursework.</p><h3 id=variables><a href=#variables>#</a>
+Variables</h3><ul><li>carat: the mass of the diamond</li><li>cut: the quality of the cut of the diamond (Fair, Good, Very Good,
+Premium, Ideal)</li><li>color: the color of the diamond (from J worst to D best)</li><li>depth: the depth percentage of the diamond</li><li>table: the percentage of the facet which can be seen when the stone
+is viewed face up</li><li>price: price in dollars</li><li>x: length in mm</li><li>y: width in mm</li><li>z: depth in mm</li></ul><h2 id=preliminary-analysis><a href=#preliminary-analysis>#</a>
+Preliminary Analysis</h2><h3 id=importing-dependencies><a href=#importing-dependencies>#</a>
+Importing Dependencies</h3><pre><code>library(&quot;tidyverse&quot;)
+
+## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.2     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+
+library(&quot;Hmisc&quot;)
+
+## 
+## Attaching package: 'Hmisc'
+## 
+## The following objects are masked from 'package:dplyr':
+## 
+##     src, summarize
+## 
+## The following objects are masked from 'package:base':
+## 
+##     format.pval, units
+</code></pre><h3 id=loading-the-data><a href=#loading-the-data>#</a>
+Loading The Data</h3><pre><code>diamond_sales &lt;- read.csv(&quot;C:/Users/kuehn/Documents/Personal-Projects/diamond_sales/data/diamonds.csv&quot;)
+head(diamond_sales)
+
+##   carat       cut color clarity depth table price    x    y    z
+## 1  0.23     Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
+## 2  0.21   Premium     E     SI1  59.8    61   326 3.89 3.84 2.31
+## 3  0.23      Good     E     VS1  56.9    65   327 4.05 4.07 2.31
+## 4  0.29   Premium     I     VS2  62.4    58   334 4.20 4.23 2.63
+## 5  0.31      Good     J     SI2  63.3    58   335 4.34 4.35 2.75
+## 6  0.24 Very Good     J    VVS2  62.8    57   336 3.94 3.96 2.48
+</code></pre><h3 id=plotting-the-variables><a href=#plotting-the-variables>#</a>
+Plotting The Variables</h3><p>First, I created some histograms of the response and explanatory
+variables to see how they are distributed.</p><pre><code>hist(diamond_sales$carat,main=&quot;Histogram of Carat&quot;,xlab=&quot;Carat&quot;)
+</code></pre><p><img src=/p/diamond-sales/diamonds_files/figure-markdown_strict/diamond_sales-1.png width=672 height=480 srcset="/p/diamond-sales/diamonds_files/figure-markdown_strict/diamond_sales-1_hub9b6f5d4249a3ebef34a4a1cd72af4fc_4206_480x0_resize_box_3.png 480w, /p/diamond-sales/diamonds_files/figure-markdown_strict/diamond_sales-1_hub9b6f5d4249a3ebef34a4a1cd72af4fc_4206_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=140 data-flex-basis=336px></p><p>The histogram of carat is right-skewed, meaning the mean carat
+measurement of the dataset will be smaller than the median carat
+measurement.</p><pre><code>hist(diamond_sales$depth,main=&quot;Histogram of Depth&quot;,xlab=&quot;Depth (Percentage)&quot;)
+</code></pre><p><img src=/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-3-1.png width=672 height=480 srcset="/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-3-1_hu8bbf28934b5e5666aab256637049e3a4_5589_480x0_resize_box_3.png 480w, /p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-3-1_hu8bbf28934b5e5666aab256637049e3a4_5589_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=140 data-flex-basis=336px></p><p>The histogram of depth percentage is approximately symmetric, meaning
+that the mean and median values for depth percentage for the dataset
+will be about equal.</p><pre><code>hist(diamond_sales$table,main=&quot;Histogram of Table&quot;,xlab=&quot;Table (Percentage)&quot;)
+</code></pre><p><img src=/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-4-1.png width=672 height=480 srcset="/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-4-1_hu51db08d4163f2be7656dcb403528eed0_4748_480x0_resize_box_3.png 480w, /p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-4-1_hu51db08d4163f2be7656dcb403528eed0_4748_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=140 data-flex-basis=336px></p><p>The histogram of table is approximately symmetric, meaning that the mean
+and median values for table for the dataset will be about equal.</p><pre><code>hist(diamond_sales$price,main=&quot;Histogram of Price&quot;,xlab=&quot;Price (Dollars)&quot;)
+</code></pre><p><img src=/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-5-1.png width=672 height=480 srcset="/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-5-1_hu97dc141c5b6ad7ca1b8cbd8d1bf43711_4413_480x0_resize_box_3.png 480w, /p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-5-1_hu97dc141c5b6ad7ca1b8cbd8d1bf43711_4413_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=140 data-flex-basis=336px></p><p>The histogram of price is right-skewed, meaning that the mean price of
+the dataset will be larger than the median price.</p><pre><code>hist(diamond_sales$x,main=&quot;Histogram of Length&quot;,xlab=&quot;Length (mm)&quot;)
+</code></pre><p><img src=/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-6-1.png width=672 height=480 srcset="/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-6-1_hu1473fd9be574e50f33a05d24f920eab9_4893_480x0_resize_box_3.png 480w, /p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-6-1_hu1473fd9be574e50f33a05d24f920eab9_4893_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=140 data-flex-basis=336px></p><p>The histogram of length is slightly skewed to the right, meaning that
+the mean length of the dataset will be slightly larger than the median
+length.</p><pre><code>hist(diamond_sales$y,main=&quot;Histogram of Width&quot;,xlab=&quot;Width (mm)&quot;)
+</code></pre><p><img src=/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-7-1.png width=672 height=480 srcset="/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-7-1_hu38e528449059a967b155593c7d3470b9_4417_480x0_resize_box_3.png 480w, /p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-7-1_hu38e528449059a967b155593c7d3470b9_4417_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=140 data-flex-basis=336px></p><p>The histogram of width is slightly left-skewed, meaning that the mean
+width of the dataset will be slightly smaller than the median width.</p><pre><code>hist(diamond_sales$z,main=&quot;Histogram of Depth&quot;,xlab=&quot;Depth (mm)&quot;)
+</code></pre><p><img src=/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-8-1.png width=672 height=480 srcset="/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-8-1_hue5c6017d49e11130cc78ab9c271dc0f3_4305_480x0_resize_box_3.png 480w, /p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-8-1_hue5c6017d49e11130cc78ab9c271dc0f3_4305_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=140 data-flex-basis=336px></p><p>The histogram of depth is slightly skewed to the right, meaning that the
+mean depth of the dataset will be slightly larger than the median depth</p><h3 id=correlation-between-all-pairs-of-quantitative-variables><a href=#correlation-between-all-pairs-of-quantitative-variables>#</a>
+Correlation Between All Pairs of Quantitative Variables</h3><pre><code>diamond_sales_quant &lt;- diamond_sales[,-c(2:4)] # Remove categorical variables
+
+# Create correlation matrix and compute p-value table
+cor_diamond_sales_quant &lt;- rcorr(as.matrix(diamond_sales_quant))
+print(cor_diamond_sales_quant)
+
+##       carat depth table price     x     y    z
+## carat  1.00  0.03  0.18  0.92  0.98  0.95 0.95
+## depth  0.03  1.00 -0.30 -0.01 -0.03 -0.03 0.09
+## table  0.18 -0.30  1.00  0.13  0.20  0.18 0.15
+## price  0.92 -0.01  0.13  1.00  0.88  0.87 0.86
+## x      0.98 -0.03  0.20  0.88  1.00  0.97 0.97
+## y      0.95 -0.03  0.18  0.87  0.97  1.00 0.95
+## z      0.95  0.09  0.15  0.86  0.97  0.95 1.00
+## 
+## n= 53940 
+## 
+## 
+## P
+##       carat  depth  table  price  x      y      z     
+## carat        0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
+## depth 0.0000        0.0000 0.0134 0.0000 0.0000 0.0000
+## table 0.0000 0.0000        0.0000 0.0000 0.0000 0.0000
+## price 0.0000 0.0134 0.0000        0.0000 0.0000 0.0000
+## x     0.0000 0.0000 0.0000 0.0000        0.0000 0.0000
+## y     0.0000 0.0000 0.0000 0.0000 0.0000        0.0000
+## z     0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
+</code></pre><p>For the predictors, carat has the strongest positive correlation with
+price (r=0.92). Length, width, and depth are also strongly positively
+correlated with price (r=0.88, r=0.87, r=0.86 respectively).
+Interestingly, depth percentage is weakly negatively correlated with
+price (r=-0.01).Table has a weak positive correlation (r=0.13). It makes
+sense that price increases as carat, length, width, and depth increase
+since bigger diamonds cost more. Perhaps depth percentage is weakly
+negatively correlated because the ideal depth percentage falls within a
+specific range.</p><p>The p-value table for the correlation test between all pairs of
+quantitative variables shows that there is a significant correlation
+between each pair of variables at the 0.05 level.</p><p>Now that the preliminary analysis is complete, a multiple linear
+regression model can be created including all the variables.</p><h2 id=linear-regression-model><a href=#linear-regression-model>#</a>
+Linear Regression Model</h2><h3 id=checking-conditions><a href=#checking-conditions>#</a>
+Checking Conditions</h3><p>To use a linear regression model, I need to check the following
+conditions:</p><ul><li>Linearity</li><li>Consistent variability</li><li>Normal residuals</li></ul><h4 id=linearity--consistent-variability-conditions><a href=#linearity--consistent-variability-conditions>#</a>
+Linearity & Consistent Variability Conditions</h4><pre><code>qqnorm(diamond_sales$price)
+qqline(diamond_sales$price, col=&quot;blue&quot;)
+</code></pre><p><img src=/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-10-1.png width=672 height=480 srcset="/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-10-1_huced28e00b8aac3f278709553d23f8492_5801_480x0_resize_box_3.png 480w, /p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-10-1_huced28e00b8aac3f278709553d23f8492_5801_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=140 data-flex-basis=336px></p><p>From the QQPlot, the quantile points do not lie on the theoretical
+normal line, thus the linearity and consistent variability conditions
+are not satisfied.</p><h4 id=normal-residuals-condition><a href=#normal-residuals-condition>#</a>
+Normal Residuals Condition</h4><pre><code>attach(diamond_sales_quant)
+model1 &lt;- lm(price ~ carat + depth + table + x + y + z) # Create initial linear model
+hist(model1$residuals,main=&quot;Histogram of Residuals&quot;,xlab=&quot;Residuals&quot;)
+</code></pre><p><img src=/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-11-1.png width=672 height=480 srcset="/p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-11-1_hu4367dc243a63467e1bf5a5745427dc87_4832_480x0_resize_box_3.png 480w, /p/diamond-sales/diamonds_files/figure-markdown_strict/unnamed-chunk-11-1_hu4367dc243a63467e1bf5a5745427dc87_4832_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=140 data-flex-basis=336px></p><p>The histogram of residuals is approximately symmetric, therefore the
+data meets the normalcy criteria.</p><p>While not all of the criteria for multiple linear regression are met,
+for the sake of practice I will continue (but with caution!).</p><h3 id=linear-model><a href=#linear-model>#</a>
+Linear Model</h3><h4 id=first-model><a href=#first-model>#</a>
+First Model</h4><pre><code>summary(model1)
+
+## 
+## Call:
+## lm(formula = price ~ carat + depth + table + x + y + z)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -23878.2   -615.0    -50.7    347.9  12759.2 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 20849.316    447.562  46.584  &lt; 2e-16 ***
+## carat       10686.309     63.201 169.085  &lt; 2e-16 ***
+## depth        -203.154      5.504 -36.910  &lt; 2e-16 ***
+## table        -102.446      3.084 -33.216  &lt; 2e-16 ***
+## x           -1315.668     43.070 -30.547  &lt; 2e-16 ***
+## y              66.322     25.523   2.599  0.00937 ** 
+## z              41.628     44.305   0.940  0.34744    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1497 on 53933 degrees of freedom
+## Multiple R-squared:  0.8592, Adjusted R-squared:  0.8592 
+## F-statistic: 5.486e+04 on 6 and 53933 DF,  p-value: &lt; 2.2e-16
+</code></pre><p>Because depth (z) is not significant, I am removing it from the model.</p><h4 id=second-model><a href=#second-model>#</a>
+Second Model</h4><pre><code>model2 &lt;- lm(price ~ carat + depth + table + x + y) # Create linear model
+summary(model2)
+
+## 
+## Call:
+## lm(formula = price ~ carat + depth + table + x + y)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -23872.1   -614.8    -50.5    347.5  12759.4 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 20702.947    419.575  49.343  &lt; 2e-16 ***
+## carat       10686.707     63.199 169.095  &lt; 2e-16 ***
+## depth        -200.718      4.855 -41.344  &lt; 2e-16 ***
+## table        -102.490      3.084 -33.234  &lt; 2e-16 ***
+## x           -1293.542     36.063 -35.869  &lt; 2e-16 ***
+## y              69.575     25.287   2.751  0.00594 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1497 on 53934 degrees of freedom
+## Multiple R-squared:  0.8592, Adjusted R-squared:  0.8592 
+## F-statistic: 6.583e+04 on 5 and 53934 DF,  p-value: &lt; 2.2e-16
+</code></pre><h4 id=final-model-interpretation><a href=#final-model-interpretation>#</a>
+Final Model Interpretation</h4><p>Now that all the variables are significant, my final regression equation
+is:</p><p><strong>Price</strong> = 20702.94 + 10686.70 * <strong>Carat</strong> − 200.71 * <strong>Depth Percentage</strong> − 102.49 * <strong>Table</strong> − 1293.54 * <strong>Length</strong> + 69.57 * <strong>Width</strong></p><p>For every additional carat, there is a $10686.70 increase in price. For
+every 1% increase in depth percentage, there is a $200.71 decrease in
+price. For every 1% increase in table, there is a $102.49 decrease in
+price. For every 1 mm increase in length, there is a $1293.54 decrease
+in price. For every 1 mm increase in width, there is a $69.57 increase
+in price. The intercept in this case does not make much sense because a
+diamond with dimensions 0 mm x 0 mm x 0 mm would not have a price of
+$20702.94.</p><h4 id=f-test><a href=#f-test>#</a>
+F-Test</h4><p>The R output includes an F-test that can be used to assess the
+usefulness of the multiple linear regression model. To understand these
+values, I need to create null and alternative hypotheses.</p><p><em>Let</em> <em>β</em><sub>0</sub> = <em>Price Intercept</em>, <em>β</em><sub>1</sub> = <em>Carat Coefficient</em>, <em>β</em><sub>2</sub> = <em>Depth Percentage Coefficient</em>, <em>β</em><sub>3</sub> = <em>Table Coefficient</em>, <em>β</em><sub>4</sub> = <em>Length Coefficient</em>, <em>β</em><sub>5</sub> = <em>Width Coefficient</em></p><p><em>H</em><sub>0</sub> : <em>β</em><sub>1</sub> = <em>β</em><sub>2</sub> = <em>β</em><sub>3</sub> = <em>β</em><sub>4</sub> = <em>β</em><sub>5</sub>, <em>H</em><sub><em>a</em></sub> : <em>N<strong>o</strong>t</em> <em>a<strong>l</strong>l</em> <em>β</em><sub><em>k</em></sub> <em>f<strong>o</strong>r</em> (<em>k</em>=0,1,..,<em>k</em>)
+The null hypothesis states that all the regression coefficients will be
+equal to zero, i.e. testing if the model does not effectively predict
+price from its characteristics. The alternative hypothesis states at
+least one of the regression coefficients is not equal to zero, i.e. the
+model is effective at predicting price from its characteristics but
+further analysis is needed to determine the significance of the
+regression coefficients.</p><p>The degrees of freedom for this test is equal to n-k-1, therefore the df
+is 53934.</p><p>The F-statistic from the R output is 6.583 * 10<sup>4</sup>. This large
+F-statistic indicates a p-value close to 0. From the R output, the
+p-value is  &lt; 2.2 * 10<sup>−16</sup>; since this p-value is less
+than 0.05, I can reject the null hypothesis and conclude that there is
+sufficient evidence that the model is effective at predicting price from
+carat, depth percentage, table, length, and width.</p><h4 id=t-tests-on-all-regression-coefficients><a href=#t-tests-on-all-regression-coefficients>#</a>
+T-Tests On All Regression Coefficients</h4><p>Next, a t-test must be performed on all the regression coefficients to
+determine if the variable is significant to the model after all other
+variables are added to the model.</p><p><em>Let</em> <em>β</em><sub>0</sub> = <em>Price Intercept</em>, <em>β</em><sub>1</sub> = <em>Carat Coefficient</em>, <em>β</em><sub>2</sub> = <em>Depth Percentage Coefficient</em>, <em>β</em><sub>3</sub> = <em>Table Coefficient</em>, <em>β</em><sub>4</sub> = <em>Length Coefficient</em>, <em>β</em><sub>5</sub> = <em>Width Coefficient</em></p><p>For the first regression coefficient, <em>β</em><sub>1</sub>:
+<em>H</em><sub>0</sub> : <em>β</em><sub>1</sub> = 0, <em>H</em><sub><em>a</em></sub> : <em>β</em><sub>1</sub> ≠ 0
+The null hypothesis states that the regression coefficient for carat
+will be equal to zero, i.e. carat is not a significant predictor of
+price when all other variables are included in the model. The
+alternative hypothesis states that the regression coefficient for carat
+will not be equal to zero, i.e. carat is a significant predictor of
+price when all other variables are not included in the model.</p><p>Degrees of freedom is equal to n-k-1, therefore the df is 53934.</p><p>From the R output, the T-statistic is 169.095. A large T-statistic
+indicates a p-value close to zero. From the R output, the p-value is
+ &lt; 2 * 10<sup>−16</sup>; since this p-value is less than 0.05, I can
+reject the null hypothesis and conclude there is sufficient evidence
+that, after all other variables are added into the model and held
+constant, carat is a significant predictor of diamond price.</p><p>For the second regression coefficient, <em>β</em><sub>2</sub>:
+<em>H</em><sub>0</sub> : <em>β</em><sub>2</sub> = 0, <em>H</em><sub><em>a</em></sub> : <em>β</em><sub>2</sub> ≠ 0
+The null hypothesis states that the regression coefficient for depth
+percentage will be equal to zero, i.e. depth percentage is not a
+significant predictor of price when all other variables are included in
+the model. The alternative hypothesis states that the regression
+coefficient for depth percentage will not be equal to zero, i.e. depth
+percentage is a significant predictor of price when all other variables
+are not included in the model.</p><p>Degrees of freedom is equal to n-k-1, therefore the df is 53934.</p><p>From the R output, the T-statistic is -41.344. A large T-statistic
+indicates a p-value close to zero. From the R output, the p-value is
+ &lt; 2 * 10<sup>−16</sup>; since this p-value is less than 0.05, I can
+reject the null hypothesis and conclude there is sufficient evidence
+that, after all other variables are added into the model and held
+constant, depth percentage is a significant predictor of diamond price.</p><p>For the third regression coefficient, <em>β</em><sub>3</sub>:
+<em>H</em><sub>0</sub> : <em>β</em><sub>3</sub> = 0, <em>H</em><sub><em>a</em></sub> : <em>β</em><sub>3</sub> ≠ 0
+The null hypothesis states that the regression coefficient for table
+will be equal to zero, i.e. table is not a significant predictor of
+price when all other variables are included in the model. The
+alternative hypothesis states that the regression coefficient for table
+will not be equal to zero, i.e. table is a significant predictor of
+price when all other variables are not included in the model.</p><p>Degrees of freedom is equal to n-k-1, therefore the df is 53934.</p><p>From the R output, the T-statistic is -33.234. A large T-statistic
+indicates a p-value close to zero. From the R output, the p-value is
+ &lt; 2 * 10<sup>−16</sup>; since this p-value is less than 0.05, I can
+reject the null hypothesis and conclude there is sufficient evidence
+that, after all other variables are added into the model and held
+constant, table is a significant predictor of diamond price.</p><p>For the fourth regression coefficient, <em>β</em><sub>4</sub>:
+<em>H</em><sub>0</sub> : <em>β</em><sub>4</sub> = 0, <em>H</em><sub><em>a</em></sub> : <em>β</em><sub>4</sub> ≠ 0
+The null hypothesis states that the regression coefficient for length
+will be equal to zero, i.e. length is not a significant predictor of
+price when all other variables are included in the model. The
+alternative hypothesis states that the regression coefficient for length
+will not be equal to zero, i.e. length is a significant predictor of
+price when all other variables are not included in the model.</p><p>Degrees of freedom is equal to n-k-1, therefore the df is 53934.</p><p>From the R output, the T-statistic is -35.869. A large T-statistic
+indicates a p-value close to zero. From the R output, the p-value is
+ &lt; 2 * 10<sup>−16</sup>; since this p-value is less than 0.05, I can
+reject the null hypothesis and conclude there is sufficient evidence
+that, after all other variables are added into the model and held
+constant, length is a significant predictor of diamond price.</p><p>For the fifth regression coefficient, <em>β</em><sub>5</sub>:
+<em>H</em><sub>0</sub> : <em>β</em><sub>5</sub> = 0, <em>H</em><sub><em>a</em></sub> : <em>β</em><sub>5</sub> ≠ 0
+The null hypothesis states that the regression coefficient for width
+will be equal to zero, i.e. width is not a significant predictor of
+price when all other variables are included in the model. The
+alternative hypothesis states that the regression coefficient for width
+will not be equal to zero, i.e. width is a significant predictor of
+price when all other variables are not included in the model.</p><p>Degrees of freedom is equal to n-k-1, therefore the df is 53934.</p><p>From the R output, the T-statistic is 2.751. A large T-statistic
+indicates a p-value close to zero. From the R output, the p-value is
+0.00594; since this p-value is less than 0.05, I can reject the null
+hypothesis and conclude there is sufficient evidence that, after all
+other variables are added into the model and held constant, width is a
+significant predictor of diamond price.</p><h2 id=conclusion><a href=#conclusion>#</a>
+Conclusion</h2><p>From this work, I have drawn the following conclusions (cautiously, as
+the criteria for multiple linear regression were not fully met):</p><ul><li>There is is sufficient evidence that the model is effective at
+predicting price from carat, depth percentage, table, length, and
+width.</li><li>There is sufficient evidence that, after all other variables are
+added into the model and held constant, carat is a significant
+predictor of diamond price.</li><li>There is sufficient evidence that, after all other variables are
+added into the model and held constant, depth percentage is a
+significant predictor of diamond price.</li><li>There is sufficient evidence that, after all other variables are
+added into the model and held constant, table is a significant
+predictor of diamond price.</li><li>There is sufficient evidence that, after all other variables are
+added into the model and held constant, length is a significant
+predictor of diamond price.</li><li>There is sufficient evidence that, after all other variables are
+added into the model and held constant, width is a significant
+predictor of diamond price.</li><li>The final model that can be used to predict price:
+<strong>Price</strong> = 20702.94 + 10686.70 * <strong>Carat</strong> − 200.71 * <strong>Depth Percentage</strong> − 102.49 * <strong>Table</strong> − 1293.54 * <strong>Length</strong> + 69.57 * <strong>Width</strong></li></ul></section><footer class=article-footer><section class=article-tags></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section><section class=article-lastmod><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>Last updated on Apr 25, 2024 00:00 UTC</span></section></footer></article><footer class=site-footer><section class=copyright>&copy;
+2024 Marissa Kuehn</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.25.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
