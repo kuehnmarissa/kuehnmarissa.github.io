@@ -1,6 +1,6 @@
 ---
 title: Blog
-description: My blog
+description: See below for my blog posts.
 image:
 
 # Badge style

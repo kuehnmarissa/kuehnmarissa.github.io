@@ -1,6 +1,6 @@
 ---
 title: R
-description: My projects in R
+description: See below for my projects in R.
 image:
 
 # Badge style

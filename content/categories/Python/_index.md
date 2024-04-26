@@ -1,6 +1,6 @@
 ---
 title: Python
-description: My projects in Python
+description: See below for my projects in Python.
 image:
 
 # Badge style
