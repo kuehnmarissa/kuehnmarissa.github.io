@@ -1,0 +1,71 @@
+---
+title: "About"
+about:
+  template: marquee
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/kuehnmarissa/
+    - icon: github
+      text: Github
+      href: https://github.com/kuehnmarissa
+
+---
+
+I am an undergraduate student at the University of Toledo working toward bachelor's degrees in Data Science and Disability Studies. I expect to graduate in May 2026. I am excited to apply my knowledge and skills to tackle real-world problems with creativity, curiosity, and a committment to making a meaningful impact. 
+
+::: {.panel-tabset}
+
+## Education
+
+B.S. Data Science, Individualized Concentration, University of Toledo (Expected May 2026)
+
+B.A. Disability Studies, University of Toledo (Expected May 2026)
+
+## Skills
+
+### Programming
+  - Python
+  - R
+  - SQL 
+
+### Tools
+  - Git
+  - RStudio
+  - Visual Studio Code
+  - Tableau
+  - Looker Studio
+
+### Other
+  - Microsoft Office Suite
+  - Google Suite
+
+## Experience
+ 
+### Data Science Intern, U.S. Department of Education (September 2023-Present)
+  - Cleaned and analyzed grant funding data using R (dplyr, tidyverse) in RStudio and Python (pandas, numpy) in Visual Studio Code. Utilized R markdown and Jupyter notebooks for organization and documentation of code.
+  - Visualized data on grant funding by the National Center for Special Education Research using Python (seaborn, matplotlib) and Looker Studio.
+  - Collaborated in a team-oriented environment on data science tasks, demonstrating flexibility and good judgement.
+
+### Research Assistant, University of Toledo (May 2022-August 2022)
+  - Analyzed focus group data using qualitative methods and presented preliminary findings to project team members.
+  - Conceptualized cognitive accessibility in website design, qualitative analysis, and accessible writing in Plain Language.
+
+## Leadership
+
+### UToledo Data Community, University of Toledo
+  - Co-founder
+  - Secretary 2024-2025
+
+### Disability Student Union, University of Toledo
+  - Co-founder
+  - President 2023-2024
+  - Secretary 2022-2023
+
+## Hobbies and Interests
+
+I love to be creative and make arts and crafts in my free time. I am an abstract artist, primarily working with watercolors. I also crochet. 
+
+I am deeply passionate about disability justice and promoting accessibility in our world. 
+
+:::

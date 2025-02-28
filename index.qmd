@@ -1,0 +1,17 @@
+---
+title: "Marissa Kuehn"
+image: assets/profile.jpg
+about:
+  template: jolla
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/kuehnmarissa/
+    - icon: github
+      text: Github
+      href: https://github.com/kuehnmarissa
+
+---
+
+Creative and curious, driven by purpose: I am an emerging data professional passionate about data science and disability studies. 
+
